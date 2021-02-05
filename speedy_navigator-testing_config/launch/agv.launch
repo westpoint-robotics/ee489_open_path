@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+
+<launch>
+
+  <arg name="do_correct_delay" default="true" />
+  <arg name="use_speed" default="true" />
+
+  <node name="urg_node" pkg="urg_node"
+        type="urg_node" />
+        
+  <node name="scan_transformer" pkg="speedy_navigator"
+        type="scan_transformer.py" />
+
+  <node name="scan_filter" pkg="speedy_navigator"
+        type="scan_filter.py" />
+        
+  <node name="turn_limits_publisher" pkg="speedy_navigator"
+        type="turn_limits_publisher.py" />
+
+  <node name="open_paths_publisher" pkg="speedy_navigator"
+        type="open_paths_publisher.py" />
+        
+  <node if="$(arg do_correct_delay)" name="delay_corrector" pkg="speedy_navigator"
+        type="delay_corrector.py" />
+        
+  <node name="tick_publisher" pkg="speedy_navigator"
+        type="tick_publisher.py" output="screen" />
+        
+  <node if="$(arg use_speed)" name="speed_publisher" pkg="speedy_navigator"
+        type="speed_publisher.py" />
+        
+  <node name="localizer" pkg="speedy_navigator"
+        type="localizer.py" />
+        
+  <node name="servo_interface" pkg="speedy_navigator"
+        type="servo_interface.py" />
+        
+  <node name="agv_control" pkg="speedy_navigator"
+        type="agv_control.py" />
+
+</launch>

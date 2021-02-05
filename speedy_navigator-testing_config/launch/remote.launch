@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+
+<launch>
+
+  <node name="operator_interface" pkg="speedy_navigator"
+        type="operator_interface.py" output="screen" />
+        
+  <node name="transform_broadcaster" pkg="speedy_navigator"
+        type="transform_broadcaster.py" />
+  
+  <node name="visualizer" pkg="speedy_navigator"
+        type="visualizer.py" />
+        
+  <node name="joy_node" pkg="joy"
+        type="joy_node" />
+        
+  <node name="joy_driver" pkg="speedy_navigator"
+        type="joy_driver.py" />
+  
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find speedy_navigator)/rviz/display_config.rviz" />  
+        
+</launch>

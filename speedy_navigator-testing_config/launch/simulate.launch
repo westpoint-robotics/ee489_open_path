@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+
+<launch>
+
+  <arg name="world_name" default="$(find speedy_navigator)/gazebo/corridorWithObstacles.world" />
+  <arg name="do_correct_delay" default="false" />
+  <arg name="use_speed" default="true" />
+  
+  <include file="$(find ackermann_vehicle_gazebo_modified)/launch/ackermann_vehicle.launch">
+    <arg name="world_name" value="$(arg world_name)" />
+  </include>
+  
+  <node name="scan_transformer" pkg="speedy_navigator"
+        type="scan_transformer.py" />
+
+  <node name="scan_filter" pkg="speedy_navigator"
+        type="scan_filter.py" />
+        
+  <node name="turn_limits_publisher" pkg="speedy_navigator"
+        type="turn_limits_publisher.py" />
+
+  <node name="open_paths_publisher" pkg="speedy_navigator"
+        type="open_paths_publisher.py" />
+        
+  <node if="$(arg do_correct_delay)" name="delay_corrector" pkg="speedy_navigator"
+        type="delay_corrector.py" />
+        
+  <node name="tick_publisher" pkg="speedy_navigator"
+        type="encoder_sim.py" />
+  
+  <node if="$(arg use_speed)" name="speed_publisher" pkg="speedy_navigator"
+        type="speed_publisher.py" />
+  
+  <node name="localizer" pkg="speedy_navigator"
+        type="localizer.py" />
+        
+  <node name="servo_interface" pkg="speedy_navigator"
+        type="gazebo_servo_interface.py" />
+        
+  <node name="agv_control" pkg="speedy_navigator"
+        type="agv_control.py" output="screen" />
+    
+  <include file="$(find speedy_navigator)/launch/remote.launch" />
+
+</launch>

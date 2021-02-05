@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+
+<launch>
+
+  <arg name="topics" default="/scan /agv/tick /agv/destination /agv/" />
+
+  <node name="record" pkg="rosbag" type="record" args="record $(arg topics)" output="screen" />
+
+</launch>
