@@ -1,2 +1,2 @@
-# ee489_open_path
+# ee489_openPath
 Sam Pool AY20
